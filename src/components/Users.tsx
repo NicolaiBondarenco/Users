@@ -1,8 +1,27 @@
 import React from 'react'
 import { Skeleton } from './Skeleton'
 import { User } from './User'
+import { AddToggleType } from '../../src/App'
 
-export const Users = ({
+export type ItemsType = {
+  id: number
+  email: string
+  first_name: string
+  last_name: string
+  avatar: string
+}
+
+type Users = {
+  items: ItemsType[]
+  isLoading: Boolean
+  onChangeSearchValue: (e: React.ChangeEvent<HTMLInputElement>) => void
+  valueInput: string
+  addUser: (id: number) => void
+  addToggle: AddToggleType[]
+  sendToUsers: () => void
+}
+
+export const Users: React.FC<Users> = ({
   items,
   isLoading,
   onChangeSearchValue,

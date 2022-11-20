@@ -1,6 +1,16 @@
-import React from 'react'
+import { AddToggleType } from '../../src/App'
 
-export const User = ({
+type UserType = {
+  id: number
+  email: string
+  first_name: string
+  last_name: string
+  avatar: string
+  addUser: (id: number) => void
+  addToggle: AddToggleType[]
+}
+
+export const User: React.FC<UserType> = ({
   id,
   email,
   first_name,
@@ -26,6 +36,7 @@ export const User = ({
     </div>
     <img
       className="action"
+      // @ts-ignore
       src={`/assets/${addToggle.includes(id) ? 'minus' : 'plus'}.svg`}
       alt="Action"
       onClick={() => addUser(id)}

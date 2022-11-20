@@ -1,29 +1,41 @@
 import React, { useState, useEffect } from 'react'
 import './index.scss'
+import { ItemsType } from './components/Users'
 import { Success } from './components/Success'
-import { Users } from './components'
+import { Users } from './components/Users'
 
 // Тут список пользователей: https://reqres.in/api/users
 
-function App() {
-  const [items, setItems] = useState([])
-  const [isLoading, setLoading] = useState(true)
-  const [valueInput, setValueInput] = useState('')
-  const [addToggle, setAddToggle] = useState([])
-  const [success, setSucces] = useState(false)
+export type AddToggleType = {
+  id: number
+  email: string
+  first_name: string
+  last_name: string
+  avatar: string
+}
+
+const App = () => {
+  const [items, setItems] = useState<ItemsType[]>([])
+  const [isLoading, setLoading] = useState<boolean>(true)
+  const [valueInput, setValueInput] = useState<string>('')
+  const [addToggle, setAddToggle] = useState<AddToggleType[]>([])
+  const [success, setSucces] = useState<boolean>(false)
 
   useEffect(() => {
     fetch('https://reqres.in/api/users')
       .then((res) => res.json())
       .then((json) => setItems(json.data))
+      .catch((err) => console.log('Error ==>', err))
     setLoading(false)
   }, [])
 
-  const onChangeSearchValue = (e) => {
+  const onChangeSearchValue = (
+    e: React.ChangeEvent<HTMLInputElement>,
+  ): void => {
     setValueInput(e.target.value)
   }
 
-  const addUser = (id) => {
+  const addUser = (id: any) => {
     if (addToggle.includes(id)) {
       setAddToggle((prev) => prev.filter((_id) => _id !== id))
     } else {
